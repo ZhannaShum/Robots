@@ -115,12 +115,13 @@ public class MainApplicationFrame extends JFrame
         }
 
 
-//        var exitMenu = new JMenu("Выход");
-        var exitMenuItem = new JMenuItem("Выход");
-        exitMenuItem.setPreferredSize(new Dimension(2, 2));
-        exitMenuItem.addActionListener((event) -> handleExit());
+        var exitMenu = new JMenu("Выход");
+        {
+            JMenuItem exitMenuItem = new JMenuItem("Выход");
+            exitMenuItem.addActionListener((event) -> handleExit());
+            exitMenu.add(exitMenuItem);
+        }
 
-//        exitMenu.add(exitMenuItem);
 
 
         JMenu testMenu = new JMenu("Тесты");
@@ -138,7 +139,7 @@ public class MainApplicationFrame extends JFrame
 
         menuBar.add(lookAndFeelMenu);
         menuBar.add(testMenu);
-        menuBar.add(exitMenuItem);
+        menuBar.add(exitMenu);
         return menuBar;
     }
     
@@ -168,7 +169,7 @@ public class MainApplicationFrame extends JFrame
         );
 
         if (confirmed == JOptionPane.YES_OPTION) {
-            //dispose();
+            dispose();
             System.exit(0);
         }
     }
