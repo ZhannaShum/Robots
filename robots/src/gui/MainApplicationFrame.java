@@ -4,15 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 import log.Logger;
 
@@ -122,6 +114,15 @@ public class MainApplicationFrame extends JFrame
             lookAndFeelMenu.add(crossplatformLookAndFeel);
         }
 
+
+//        var exitMenu = new JMenu("Выход");
+        var exitMenuItem = new JMenuItem("Выход");
+        exitMenuItem.setPreferredSize(new Dimension(2, 2));
+        exitMenuItem.addActionListener((event) -> handleExit());
+
+//        exitMenu.add(exitMenuItem);
+
+
         JMenu testMenu = new JMenu("Тесты");
         testMenu.setMnemonic(KeyEvent.VK_T);
         testMenu.getAccessibleContext().setAccessibleDescription(
@@ -137,6 +138,7 @@ public class MainApplicationFrame extends JFrame
 
         menuBar.add(lookAndFeelMenu);
         menuBar.add(testMenu);
+        menuBar.add(exitMenuItem);
         return menuBar;
     }
     
@@ -151,6 +153,23 @@ public class MainApplicationFrame extends JFrame
             | IllegalAccessException | UnsupportedLookAndFeelException e)
         {
             // just ignore
+        }
+    }
+
+    private void handleExit() {
+        var options = new String[]{"Да", "Нет"};
+        var confirmed = JOptionPane.showOptionDialog(this,
+                "Вы уверены, что хотите выйти из программы?", "Выход",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]
+        );
+
+        if (confirmed == JOptionPane.YES_OPTION) {
+            //dispose();
+            System.exit(0);
         }
     }
 }
